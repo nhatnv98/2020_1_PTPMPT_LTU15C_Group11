@@ -17,6 +17,15 @@ public class Transaction extends Abstract {
     private String cardNo2;
     private TransactionType type;
     private BigDecimal money;
+    private boolean deleted;
+
+    public boolean isDeleted() {
+        return deleted;
+    }
+
+    public void setDeleted(boolean deleted) {
+        this.deleted = deleted;
+    }
 
     public int getId() {
         return id;

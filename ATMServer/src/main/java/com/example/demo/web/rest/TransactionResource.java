@@ -6,4 +6,5 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @RequestMapping(name = "/api/transaction")
 public class TransactionResource {
+
 }

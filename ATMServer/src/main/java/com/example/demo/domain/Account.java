@@ -25,6 +25,15 @@ public class Account extends Abstract{
     private String phone;
     private String pin;
     private BigDecimal balance;
+    private boolean deleted;
+
+    public boolean isDeleted() {
+        return deleted;
+    }
+
+    public void setDeleted(boolean deleted) {
+        this.deleted = deleted;
+    }
 
     public int getId() {
         return id;
