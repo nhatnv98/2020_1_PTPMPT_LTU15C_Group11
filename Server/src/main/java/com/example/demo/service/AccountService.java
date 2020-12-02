@@ -21,7 +21,7 @@ public class AccountService {
         account.setCardNo(accountRequest.getCardNo());
         account.setPhone(accountRequest.getPhone());
         account.setPin(accountRequest.getPin());
-        var result = accountRepository.save(account);
+        Account result = accountRepository.save(account);
         return result;
     }
     public Account update(int id ,AccountRequest accountRequest){
