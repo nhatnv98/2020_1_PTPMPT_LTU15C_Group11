@@ -1,8 +1,11 @@
 package com.example.demo.web.vm;
 
+import org.springframework.stereotype.Component;
+
 import javax.persistence.Column;
 import java.math.BigDecimal;
 
+@Component
 public class TransactionRequest {
     private String cardNo1;
     private String cardNo2;

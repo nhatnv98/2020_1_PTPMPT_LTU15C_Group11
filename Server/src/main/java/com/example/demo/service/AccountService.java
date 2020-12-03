@@ -2,25 +2,27 @@ package com.example.demo.service;
 
 import com.example.demo.domain.Account;
 import com.example.demo.repository.AccountRepository;
+import com.example.demo.utils.PasswordEncoderUtils;
 import com.example.demo.web.vm.AccountRequest;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-
 @Service
 public class AccountService {
     private final AccountRepository accountRepository;
-
-    public AccountService(AccountRepository accountRepository) {
+    private final PasswordEncoderUtils passwordEncoderUtils;
+    @Autowired
+    public AccountService(AccountRepository accountRepository, PasswordEncoderUtils passwordEncoderUtils) {
         this.accountRepository = accountRepository;
+        this.passwordEncoderUtils = passwordEncoderUtils;
     }
     public Account create(AccountRequest accountRequest){
         var account = new Account();
         account.setFullName(accountRequest.getFullName());
         account.setBalance(accountRequest.getBalance());
-        account.setCardNo(accountRequest.getCardNo());
         account.setPhone(accountRequest.getPhone());
-        account.setPin(accountRequest.getPin());
+        account.setPin(passwordEncoderUtils.encodePassword(accountRequest.getPin()));
         Account result = accountRepository.save(account);
         return result;
     }
