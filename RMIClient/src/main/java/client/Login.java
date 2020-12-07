@@ -155,11 +155,13 @@ public class Login extends javax.swing.JFrame {
                     JOptionPane.showMessageDialog(null, "Sai số tài khoản hoặc mã PIN!", "Warning",
                             JOptionPane.WARNING_MESSAGE);
                     reset();
-                } else if (userInfo.get(0).compareToIgnoreCase("logined") == 0) {
-                    JOptionPane.showMessageDialog(null, "Bạn chưa kết thúc giao dịch!", "Warning",
-                            JOptionPane.WARNING_MESSAGE);
-                    reset();
-                } else if (userInfo.get(0).compareToIgnoreCase("locked") == 0) {
+                }
+//                else if (userInfo.get(0).compareToIgnoreCase("logined") == 0) {
+//                    JOptionPane.showMessageDialog(null, "Bạn chưa kết thúc giao dịch!", "Warning",
+//                            JOptionPane.WARNING_MESSAGE);
+//                    reset();
+//                }
+            else if (userInfo.get(0).compareToIgnoreCase("locked") == 0) {
                     JOptionPane.showMessageDialog(null, "Tài khoản của bạn đã bị khóa!", "Warning",
                             JOptionPane.WARNING_MESSAGE);
                     reset();
