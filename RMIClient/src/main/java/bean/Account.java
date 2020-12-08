@@ -14,13 +14,7 @@ import java.math.BigDecimal;
  */
 public class Account implements Serializable {
 
-    private String full_name;
-    private String address;
-    private String phone;
-    private String card_no;
-    private String pin;
-    private BigDecimal balance;
-
+    
     public String getFull_name() {
         return full_name;
     }
