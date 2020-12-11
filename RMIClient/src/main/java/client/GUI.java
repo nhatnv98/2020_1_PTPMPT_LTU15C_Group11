@@ -38,7 +38,6 @@ public class GUI extends javax.swing.JFrame {
         btChuyenkhoan = new javax.swing.JButton();
         btThoat = new javax.swing.JButton();
         btChangePw = new javax.swing.JButton();
-        btVantin = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -50,13 +49,18 @@ public class GUI extends javax.swing.JFrame {
         });
 
         btChuyenkhoan.setText("Chuyển khoản");
+        btChuyenkhoan.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btChuyenkhoanMouseClicked(evt);
+            }
+        });
         btChuyenkhoan.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btChuyenkhoanActionPerformed(evt);
             }
         });
 
-        btThoat.setText("Thoát");
+        btThoat.setText(".Thoát");
         btThoat.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btThoatActionPerformed(evt);
@@ -70,13 +74,6 @@ public class GUI extends javax.swing.JFrame {
             }
         });
 
-        btVantin.setText("Vấn tin tài khoản");
-        btVantin.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btVantinActionPerformed(evt);
-            }
-        });
-
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -85,16 +82,14 @@ public class GUI extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
                         .addGap(61, 61, 61)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(btRuttien, javax.swing.GroupLayout.PREFERRED_SIZE, 116, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(btChangePw, javax.swing.GroupLayout.PREFERRED_SIZE, 114, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(btRuttien, javax.swing.GroupLayout.PREFERRED_SIZE, 116, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(41, 41, 41)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(btChuyenkhoan, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(btVantin, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                        .addComponent(btChuyenkhoan, javax.swing.GroupLayout.PREFERRED_SIZE, 129, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(140, 140, 140)
-                        .addComponent(btThoat, javax.swing.GroupLayout.PREFERRED_SIZE, 124, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(btThoat, javax.swing.GroupLayout.DEFAULT_SIZE, 124, Short.MAX_VALUE)
+                            .addComponent(btChangePw, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
                 .addContainerGap(69, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
@@ -104,13 +99,11 @@ public class GUI extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btRuttien)
                     .addComponent(btChuyenkhoan))
-                .addGap(20, 20, 20)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(btVantin)
-                    .addComponent(btChangePw))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGap(31, 31, 31)
+                .addComponent(btChangePw)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 32, Short.MAX_VALUE)
                 .addComponent(btThoat)
-                .addContainerGap(66, Short.MAX_VALUE))
+                .addGap(36, 36, 36))
         );
 
         pack();
@@ -130,20 +123,20 @@ public class GUI extends javax.swing.JFrame {
          }
     }//GEN-LAST:event_btThoatActionPerformed
 
-    private void btVantinActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btVantinActionPerformed
-        new Inquery().setVisible(true);
-        dispose();
-    }//GEN-LAST:event_btVantinActionPerformed
-
     private void btChangePwActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btChangePwActionPerformed
         new ChangePass().setVisible(true);
         dispose();
     }//GEN-LAST:event_btChangePwActionPerformed
 
     private void btChuyenkhoanActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btChuyenkhoanActionPerformed
+        new Trans().setVisible(true);
         new Transfer().setVisible(true);
         dispose();
     }//GEN-LAST:event_btChuyenkhoanActionPerformed
+
+    private void btChuyenkhoanMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btChuyenkhoanMouseClicked
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btChuyenkhoanMouseClicked
 
     /**
      * @param args the command line arguments
@@ -155,6 +148,5 @@ public class GUI extends javax.swing.JFrame {
     private javax.swing.JButton btChuyenkhoan;
     private javax.swing.JButton btRuttien;
     private javax.swing.JButton btThoat;
-    private javax.swing.JButton btVantin;
     // End of variables declaration//GEN-END:variables
 }

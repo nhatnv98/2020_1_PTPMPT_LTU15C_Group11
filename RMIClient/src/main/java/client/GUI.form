@@ -27,19 +27,16 @@
               <Group type="103" groupAlignment="0" attributes="0">
                   <Group type="102" attributes="0">
                       <EmptySpace min="-2" pref="61" max="-2" attributes="0"/>
-                      <Group type="103" groupAlignment="0" attributes="0">
-                          <Component id="btRuttien" min="-2" pref="116" max="-2" attributes="0"/>
-                          <Component id="btChangePw" min="-2" pref="114" max="-2" attributes="0"/>
-                      </Group>
+                      <Component id="btRuttien" min="-2" pref="116" max="-2" attributes="0"/>
                       <EmptySpace min="-2" pref="41" max="-2" attributes="0"/>
-                      <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                          <Component id="btChuyenkhoan" max="32767" attributes="0"/>
-                          <Component id="btVantin" alignment="0" max="32767" attributes="0"/>
-                      </Group>
+                      <Component id="btChuyenkhoan" min="-2" pref="129" max="-2" attributes="0"/>
                   </Group>
                   <Group type="102" alignment="0" attributes="0">
                       <EmptySpace min="-2" pref="140" max="-2" attributes="0"/>
-                      <Component id="btThoat" min="-2" pref="124" max="-2" attributes="0"/>
+                      <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                          <Component id="btThoat" pref="124" max="32767" attributes="0"/>
+                          <Component id="btChangePw" max="32767" attributes="0"/>
+                      </Group>
                   </Group>
               </Group>
               <EmptySpace pref="69" max="32767" attributes="0"/>
@@ -54,14 +51,11 @@
                   <Component id="btRuttien" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="btChuyenkhoan" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
-              <EmptySpace min="-2" pref="20" max="-2" attributes="0"/>
-              <Group type="103" groupAlignment="3" attributes="0">
-                  <Component id="btVantin" alignment="3" min="-2" max="-2" attributes="0"/>
-                  <Component id="btChangePw" alignment="3" min="-2" max="-2" attributes="0"/>
-              </Group>
-              <EmptySpace type="unrelated" max="-2" attributes="0"/>
+              <EmptySpace min="-2" pref="31" max="-2" attributes="0"/>
+              <Component id="btChangePw" min="-2" max="-2" attributes="0"/>
+              <EmptySpace pref="32" max="32767" attributes="0"/>
               <Component id="btThoat" min="-2" max="-2" attributes="0"/>
-              <EmptySpace pref="66" max="32767" attributes="0"/>
+              <EmptySpace min="-2" pref="36" max="-2" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
@@ -80,12 +74,13 @@
         <Property name="text" type="java.lang.String" value="Chuy&#x1ec3;n kho&#x1ea3;n"/>
       </Properties>
       <Events>
+        <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="btChuyenkhoanMouseClicked"/>
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btChuyenkhoanActionPerformed"/>
       </Events>
     </Component>
     <Component class="javax.swing.JButton" name="btThoat">
       <Properties>
-        <Property name="text" type="java.lang.String" value="Tho&#xe1;t"/>
+        <Property name="text" type="java.lang.String" value=".Tho&#xe1;t"/>
       </Properties>
       <Events>
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btThoatActionPerformed"/>
@@ -97,14 +92,6 @@
       </Properties>
       <Events>
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btChangePwActionPerformed"/>
-      </Events>
-    </Component>
-    <Component class="javax.swing.JButton" name="btVantin">
-      <Properties>
-        <Property name="text" type="java.lang.String" value="V&#x1ea5;n tin t&#xe0;i kho&#x1ea3;n"/>
-      </Properties>
-      <Events>
-        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btVantinActionPerformed"/>
       </Events>
     </Component>
   </SubComponents>

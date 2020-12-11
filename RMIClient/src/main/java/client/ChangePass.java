@@ -50,25 +50,25 @@ public class ChangePass extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        jLabel1.setText("Nhập mật cũ: ");
+        jLabel1.setText("Nhập mật cũ.: ");
 
-        btsave.setText("Thay đổi");
+        btsave.setText("Thay đổi.");
         btsave.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btsaveActionPerformed(evt);
             }
         });
 
-        btBack.setText("Trở về");
+        btBack.setText("Trở về.");
         btBack.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btBackActionPerformed(evt);
             }
         });
 
-        jLabel2.setText("Nhập lại mật khẩu : ");
+        jLabel2.setText("Nhập lại mật khẩu. : ");
 
-        jLabel3.setText("Nhập mật khẩu mới : ");
+        jLabel3.setText("Nhập mật khẩu mới .: ");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -79,7 +79,7 @@ public class ChangePass extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(btBack, javax.swing.GroupLayout.PREFERRED_SIZE, 71, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 92, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 89, Short.MAX_VALUE)
                         .addComponent(btsave)
                         .addGap(78, 78, 78))
                     .addGroup(layout.createSequentialGroup()
@@ -156,7 +156,7 @@ public class ChangePass extends javax.swing.JFrame {
         try {
             ArrayList<String> code;
             String codeshow = "";
-            code = client.getBank().changepass(Login.userInfo.get(0), tfpwolld.getText(), "old");
+            code = client.getBank().changepass(Login.userInfo.get(1), tfpwolld.getText(), tfpwnewagain.getText());
             if (code.size() > 0) {
                 for (int i = 0; i < code.size(); i++) {
                     codeshow = code.get(i) + "\n";
@@ -168,7 +168,7 @@ public class ChangePass extends javax.swing.JFrame {
                 ArrayList<String> error = validation(tfpwolld.getText(), tfpwnew.getText(), tfpwnewagain.getText());
                 if (error.isEmpty()) {
                     client.getBank().changepass(Login.userInfo.get(0), tfpwolld.getText(), tfpwnew.getText());
-                    JOptionPane.showMessageDialog(null, "Đổi mật khẩu thành công", "Success",
+                    JOptionPane.showMessageDialog(null, "Đổi mật khẩu thành công.", "Success",
                             JOptionPane.INFORMATION_MESSAGE);
                     reset();
                 } else {

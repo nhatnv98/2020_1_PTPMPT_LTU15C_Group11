@@ -28,7 +28,7 @@
               <Group type="103" groupAlignment="0" attributes="0">
                   <Group type="102" attributes="0">
                       <Component id="btBack" min="-2" pref="71" max="-2" attributes="0"/>
-                      <EmptySpace pref="92" max="32767" attributes="0"/>
+                      <EmptySpace pref="89" max="32767" attributes="0"/>
                       <Component id="btsave" min="-2" max="-2" attributes="0"/>
                       <EmptySpace min="-2" pref="78" max="-2" attributes="0"/>
                   </Group>
@@ -85,12 +85,12 @@
   <SubComponents>
     <Component class="javax.swing.JLabel" name="jLabel1">
       <Properties>
-        <Property name="text" type="java.lang.String" value="Nh&#x1ead;p m&#x1ead;t c&#x169;: "/>
+        <Property name="text" type="java.lang.String" value="Nh&#x1ead;p m&#x1ead;t c&#x169;.: "/>
       </Properties>
     </Component>
     <Component class="javax.swing.JButton" name="btsave">
       <Properties>
-        <Property name="text" type="java.lang.String" value="Thay &#x111;&#x1ed5;i"/>
+        <Property name="text" type="java.lang.String" value="Thay &#x111;&#x1ed5;i."/>
       </Properties>
       <Events>
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btsaveActionPerformed"/>
@@ -98,7 +98,7 @@
     </Component>
     <Component class="javax.swing.JButton" name="btBack">
       <Properties>
-        <Property name="text" type="java.lang.String" value="Tr&#x1edf; v&#x1ec1;"/>
+        <Property name="text" type="java.lang.String" value="Tr&#x1edf; v&#x1ec1;."/>
       </Properties>
       <Events>
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btBackActionPerformed"/>
@@ -106,7 +106,7 @@
     </Component>
     <Component class="javax.swing.JLabel" name="jLabel2">
       <Properties>
-        <Property name="text" type="java.lang.String" value="Nh&#x1ead;p l&#x1ea1;i m&#x1ead;t kh&#x1ea9;u : "/>
+        <Property name="text" type="java.lang.String" value="Nh&#x1ead;p l&#x1ea1;i m&#x1ead;t kh&#x1ea9;u. : "/>
       </Properties>
     </Component>
     <Component class="javax.swing.JPasswordField" name="tfpwnew">
@@ -115,7 +115,7 @@
     </Component>
     <Component class="javax.swing.JLabel" name="jLabel3">
       <Properties>
-        <Property name="text" type="java.lang.String" value="Nh&#x1ead;p m&#x1ead;t kh&#x1ea9;u m&#x1edb;i : "/>
+        <Property name="text" type="java.lang.String" value="Nh&#x1ead;p m&#x1ead;t kh&#x1ea9;u m&#x1edb;i .: "/>
       </Properties>
     </Component>
     <Component class="javax.swing.JPasswordField" name="tfpwolld">

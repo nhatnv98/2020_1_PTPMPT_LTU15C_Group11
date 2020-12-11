@@ -95,20 +95,12 @@ public class Main extends javax.swing.JFrame {
         jLabel10 = new javax.swing.JLabel();
         fullNameTextView = new javax.swing.JTextField();
         pintf = new javax.swing.JTextField();
-        jPanel10 = new javax.swing.JPanel();
-        jLabel5 = new javax.swing.JLabel();
-        changeCardNoTextView = new javax.swing.JTextField();
-        changePinTextView = new javax.swing.JPasswordField();
-        jLabel6 = new javax.swing.JLabel();
-        changePinButtonView = new javax.swing.JButton();
         jPanel1 = new javax.swing.JPanel();
         jLabel7 = new javax.swing.JLabel();
         topUpAccountTextView = new javax.swing.JTextField();
         jLabel8 = new javax.swing.JLabel();
         topUpAmountTextView = new javax.swing.JTextField();
         topUpButtonView = new javax.swing.JButton();
-        jScrollPane2 = new javax.swing.JScrollPane();
-        tblist = new javax.swing.JTable();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -118,16 +110,16 @@ public class Main extends javax.swing.JFrame {
             }
         });
 
-        TransactionTableView.setModel(new DefaultTableModel(
+        TransactionTableView.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
             },
             new String [] {
-                "Tài khoản giao dịch", "Tài khoản nhận", "Loại giao dịch", "Số tiền", "Lý do giao dịch", "Thời gian thực hiện"
+                "Tài khoản nguồn", "Tài khoản nhận tiền", "Loại", "Số tiền", "Mã", "Thời gian"
             }
         ) {
             Class[] types = new Class [] {
-                String.class, String.class, String.class, String.class, String.class, String.class
+                java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class
             };
             boolean[] canEdit = new boolean [] {
                 false, false, false, false, false, false
@@ -237,52 +229,7 @@ public class Main extends javax.swing.JFrame {
                 .addGap(29, 29, 29))
         );
 
-        MainView.addTab("Tạo tài khoản", jPanel8);
-
-        jLabel5.setText("Số tài khoản");
-
-        jLabel6.setText("Mã Pin");
-
-        changePinButtonView.setText("Đổi mã PIN");
-        changePinButtonView.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                changePinButtonViewActionPerformed(evt);
-            }
-        });
-
-        javax.swing.GroupLayout jPanel10Layout = new javax.swing.GroupLayout(jPanel10);
-        jPanel10.setLayout(jPanel10Layout);
-        jPanel10Layout.setHorizontalGroup(
-            jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel10Layout.createSequentialGroup()
-                .addGap(31, 31, 31)
-                .addGroup(jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel5)
-                    .addComponent(jLabel6))
-                .addGap(46, 46, 46)
-                .addGroup(jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(changePinButtonView, javax.swing.GroupLayout.DEFAULT_SIZE, 329, Short.MAX_VALUE)
-                    .addComponent(changePinTextView)
-                    .addComponent(changeCardNoTextView, javax.swing.GroupLayout.DEFAULT_SIZE, 329, Short.MAX_VALUE))
-                .addContainerGap(309, Short.MAX_VALUE))
-        );
-        jPanel10Layout.setVerticalGroup(
-            jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel10Layout.createSequentialGroup()
-                .addGap(27, 27, 27)
-                .addGroup(jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel5)
-                    .addComponent(changeCardNoTextView, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
-                .addGroup(jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(changePinTextView, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel6))
-                .addGap(31, 31, 31)
-                .addComponent(changePinButtonView)
-                .addContainerGap(156, Short.MAX_VALUE))
-        );
-
-        MainView.addTab("Đổi mã PIN", jPanel10);
+        MainView.addTab("Tạo tài khoản mới", jPanel8);
 
         jLabel7.setText("Số tài khoản");
 
@@ -333,23 +280,7 @@ public class Main extends javax.swing.JFrame {
                 .addContainerGap(179, Short.MAX_VALUE))
         );
 
-        MainView.addTab("Nạp tiền", jPanel1);
-
-        tblist.setModel(new DefaultTableModel(
-            new Object [][] {
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null}
-            },
-            new String [] {
-                "STT", "Họ tên", "Địa chỉ", "SDT", "Số tài khoản", "Mã PIN", "Số dư", "Trạng thái"
-            }
-        ));
-        tblist.setEnabled(false);
-        jScrollPane2.setViewportView(tblist);
-
-        MainView.addTab("Danh sách", jScrollPane2);
+        MainView.addTab("Nạp tiền vào tài khoản", jPanel1);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -370,6 +301,46 @@ public class Main extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void MainViewComponentShown(java.awt.event.ComponentEvent evt) {//GEN-FIRST:event_MainViewComponentShown
+        // TODO add your handling code here:
+    }//GEN-LAST:event_MainViewComponentShown
+
+    private void topUpButtonViewActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_topUpButtonViewActionPerformed
+
+    }//GEN-LAST:event_topUpButtonViewActionPerformed
+
+    private void topUpAmountTextViewActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_topUpAmountTextViewActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_topUpAmountTextViewActionPerformed
+
+    private void createAccountButtonViewActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_createAccountButtonViewActionPerformed
+        // TODO add your handling code here:
+        String fullName = fullNameTextView.getText();
+        String address = addressTextView.getText();
+        String phone = phoneTextView.getText();
+        // System.out.println(pin);
+
+        if (fullName.length() > 0 || address.length() > 0) {
+            if (isNumericPhone(phone)) {
+                Query query = new Query();
+                String cardNo = String.format("%040d", new BigInteger(UUID.randomUUID().toString().replace("-", ""), 16)).substring(0, 10);
+                while (query.check(cardNo)) {
+                    cardNo = String.format("%040d", new BigInteger(UUID.randomUUID().toString().replace("-", ""), 16)).substring(0, 10);
+                }
+                String pin = genPin(6);
+                query.createAccount(fullName, address, phone, cardNo, pin);
+                numacc.setText(cardNo);
+                pintf.setText(pin);
+                JOptionPane.showMessageDialog(null, "Táº¡o tÃ i khoáº£n thÃ nh cÃ´ng");
+            } else {
+                JOptionPane.showMessageDialog(null, "Sá»‘ Ä‘iá»‡n thoáº¡i pháº£i lÃ  10 sá»‘!");
+            }
+
+        } else {
+            JOptionPane.showMessageDialog(null, "Vui lÃ²ng Ä‘iá»?n Ä‘áº§y Ä‘á»§ thÃ´ng tin");
+        }
+    }//GEN-LAST:event_createAccountButtonViewActionPerformed
 
     
 
@@ -400,11 +371,7 @@ public class Main extends javax.swing.JFrame {
         } else {
             return false;
         }
-    }
-    private void changePinButtonViewActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_changePinButtonViewActionPerformed
-      
-    }//GEN-LAST:event_changePinButtonViewActionPerformed
-    private String genPin(int length) {
+    }    private String genPin(int length) {
         StringBuilder sb = new StringBuilder();
         Random generator = new Random();
         for (int i = 0; i < length; i++) {
@@ -414,46 +381,6 @@ public class Main extends javax.swing.JFrame {
         }
         return sb.toString();
     }
-    private void createAccountButtonViewActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_createAccountButtonViewActionPerformed
-        // TODO add your handling code here:
-        String fullName = fullNameTextView.getText();
-        String address = addressTextView.getText();
-        String phone = phoneTextView.getText();
-        // System.out.println(pin);
-
-        if (fullName.length() > 0 || address.length() > 0) {
-            if (isNumericPhone(phone)) {
-                Query query = new Query();
-                String cardNo = String.format("%040d", new BigInteger(UUID.randomUUID().toString().replace("-", ""), 16)).substring(0, 10);
-                while (query.check(cardNo)) {
-                    cardNo = String.format("%040d", new BigInteger(UUID.randomUUID().toString().replace("-", ""), 16)).substring(0, 10);
-                }
-                String pin = genPin(6);
-                query.createAccount(fullName, address, phone, cardNo, pin);
-                numacc.setText(cardNo);
-                pintf.setText(pin);
-                JOptionPane.showMessageDialog(null, "Tạo tài khoản thành công");
-            } else {
-                JOptionPane.showMessageDialog(null, "Số điện thoại phải là 10 số!");
-            }
-
-        } else {
-            JOptionPane.showMessageDialog(null, "Vui lòng điền đầy đủ thông tin");
-        }
-    }//GEN-LAST:event_createAccountButtonViewActionPerformed
-
-    private void topUpButtonViewActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_topUpButtonViewActionPerformed
-        
-    }//GEN-LAST:event_topUpButtonViewActionPerformed
-
-    private void MainViewComponentShown(java.awt.event.ComponentEvent evt) {//GEN-FIRST:event_MainViewComponentShown
-        // TODO add your handling code here:
-    }//GEN-LAST:event_MainViewComponentShown
-
-    private void topUpAmountTextViewActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_topUpAmountTextViewActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_topUpAmountTextViewActionPerformed
-
     /**
      * @param args the command line arguments
      */
@@ -496,9 +423,6 @@ public class Main extends javax.swing.JFrame {
     private javax.swing.JPanel TransactionTabView;
     private javax.swing.JTable TransactionTableView;
     private javax.swing.JTextField addressTextView;
-    private javax.swing.JTextField changeCardNoTextView;
-    private javax.swing.JButton changePinButtonView;
-    private javax.swing.JPasswordField changePinTextView;
     private javax.swing.JButton createAccountButtonView;
     private javax.swing.JTextField fullNameTextView;
     private javax.swing.JLabel jLabel1;
@@ -506,21 +430,16 @@ public class Main extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
-    private javax.swing.JLabel jLabel5;
-    private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel1;
-    private javax.swing.JPanel jPanel10;
     private javax.swing.JPanel jPanel8;
     private javax.swing.JProgressBar jProgressBar1;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JTextField numacc;
     private javax.swing.JTextField phoneTextView;
     private javax.swing.JTextField pintf;
-    private javax.swing.JTable tblist;
     private javax.swing.JTextField topUpAccountTextView;
     private javax.swing.JTextField topUpAmountTextView;
     private javax.swing.JButton topUpButtonView;

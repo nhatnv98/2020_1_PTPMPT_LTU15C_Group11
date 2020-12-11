@@ -4,7 +4,6 @@
  * and open the template in the editor.
  */
 package client;
-
 import java.math.BigDecimal;
 import java.rmi.RemoteException;
 import java.sql.SQLException;
@@ -34,8 +33,7 @@ public class Withdraw extends javax.swing.JFrame {
             client = new RMIClient();
             initComponents();
             setLocationRelativeTo(null);
-
-            tfBalance.setText(String.valueOf(n.format(client.getBank().getAccount(Login.userInfo.get(0)).getBalance())));
+            tfBalance.setText(String.valueOf(n.format(client.getBank().getAccount(Login.userInfo.get(1)).getBalance())));
 
         } catch (RemoteException ex) {
             Logger.getLogger(Withdraw.class.getName()).log(Level.SEVERE, null, ex);
@@ -62,23 +60,23 @@ public class Withdraw extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        jLabel3.setText("Nhập số tiền cần rút : ");
+        jLabel3.setText("Số tiền cần rút : ");
 
-        btWithdraw.setText("Rút tiền");
+        btWithdraw.setText("Rút");
         btWithdraw.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btWithdrawActionPerformed(evt);
             }
         });
 
-        btBack.setText("Trở về");
+        btBack.setText("Quay lại");
         btBack.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btBackActionPerformed(evt);
             }
         });
 
-        jLabel4.setText("Số dư hiện tại: ");
+        jLabel4.setText("Số dư hiện tại : ");
 
         tfBalance.setEditable(false);
         tfBalance.addActionListener(new java.awt.event.ActionListener() {
@@ -97,37 +95,34 @@ public class Withdraw extends javax.swing.JFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(38, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addGap(79, 79, 79)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel3)
                     .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(btBack, javax.swing.GroupLayout.PREFERRED_SIZE, 81, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel4))
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(layout.createSequentialGroup()
-                                .addGap(78, 78, 78)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                    .addComponent(tfAmount, javax.swing.GroupLayout.DEFAULT_SIZE, 115, Short.MAX_VALUE)
-                                    .addComponent(tfBalance)))
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(btWithdraw)
-                                .addGap(18, 18, 18)))))
-                .addGap(50, 50, 50))
+                            .addComponent(jLabel4)
+                            .addComponent(jLabel3))
+                        .addGap(18, 18, 18)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(tfAmount, javax.swing.GroupLayout.PREFERRED_SIZE, 115, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(tfBalance, javax.swing.GroupLayout.PREFERRED_SIZE, 115, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(btBack, javax.swing.GroupLayout.PREFERRED_SIZE, 81, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(73, 73, 73)
+                        .addComponent(btWithdraw)))
+                .addContainerGap(94, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addGap(47, 47, 47)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel3)
-                    .addComponent(tfAmount, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(tfAmount, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel4)
-                    .addComponent(tfBalance, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(tfBalance, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel4))
                 .addGap(37, 37, 37)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btBack)
@@ -164,7 +159,9 @@ public class Withdraw extends javax.swing.JFrame {
         if (isNumeric(tfAmount.getText())) {
             try {
                 ArrayList<String> code;
-                code = client.getBank().withdraw(Login.userInfo.get(0), new BigDecimal(tfAmount.getText()));
+                System.out.println(Login.userInfo);
+                System.out.println(Login.userInfo.get(1) + tfAmount.getText());
+                code = client.getBank().withdraw(Login.userInfo.get(1), new BigDecimal(tfAmount.getText()));
                 if (code.size() > 0) {
                     for (int i = 0; i < code.size(); i++) {
                         codeshow = code.get(i) + "\n";
@@ -172,8 +169,8 @@ public class Withdraw extends javax.swing.JFrame {
                     JOptionPane.showMessageDialog(null, codeshow, "Warning",
                             JOptionPane.WARNING_MESSAGE);
                 } else {
-                    tfBalance.setText(String.valueOf(n.format(client.getBank().getAccount(Login.userInfo.get(0)).getBalance())));
-                    JOptionPane.showMessageDialog(null, "Rút tiền thành công", "Success",
+                    tfBalance.setText(String.valueOf(n.format(client.getBank().getAccount(Login.userInfo.get(1)).getBalance())));
+                    JOptionPane.showMessageDialog(null, "Thành công", "Success",
                             JOptionPane.INFORMATION_MESSAGE);
                 }
                 reset();
@@ -183,7 +180,7 @@ public class Withdraw extends javax.swing.JFrame {
                 Logger.getLogger(Withdraw.class.getName()).log(Level.SEVERE, null, ex);
             }
         } else {
-            JOptionPane.showMessageDialog(null, "Mời bạn nhập đúng số tiền!", "Warning",
+            JOptionPane.showMessageDialog(null, "Mời nhập đúng số tiền!", "Warning",
                     JOptionPane.WARNING_MESSAGE);
         }
     }//GEN-LAST:event_btWithdrawActionPerformed
