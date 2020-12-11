@@ -129,8 +129,8 @@ public class GUI extends javax.swing.JFrame {
     }//GEN-LAST:event_btChangePwActionPerformed
 
     private void btChuyenkhoanActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btChuyenkhoanActionPerformed
+
         new Trans().setVisible(true);
-        new Transfer().setVisible(true);
         dispose();
     }//GEN-LAST:event_btChuyenkhoanActionPerformed
 

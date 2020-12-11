@@ -17,27 +17,14 @@ public class Client {
 
     public static void main(String[] args) throws Exception {
 
-        // Search the registry in the specific Host, Port.
+        
         registry = LocateRegistry.getRegistry(HOST, PORT);
 
-        // Lookup WeatherService in the Registry.
-        WeatherService service = (WeatherService) registry
+                WeatherService service = (WeatherService) registry
                 .lookup(WeatherService.class.getSimpleName());
 
         Date today = new Date();
 
-        // Get Chicago weather info:
-        WeatherData chicagoWeather = service.getWeather(today,
-                Constants.LOCATION_CHICAGO);
-
-        System.out.println("Chicago weather today: "
-                + chicagoWeather.getWeather());
-
-        // Get Hanoi weather info:
-        WeatherData hanoiWeather = service.getWeather(today,
-                Constants.LOCATION_HANOI);
-
-        System.out.println("Hanoi weather today: " + hanoiWeather.getWeather());
 
     }
 }

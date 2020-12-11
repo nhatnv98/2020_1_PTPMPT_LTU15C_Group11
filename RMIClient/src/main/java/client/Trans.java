@@ -5,8 +5,6 @@
  */
 package client;
 
-import bean.Account;
-import bean.Bank;
 import java.math.BigDecimal;
 import java.rmi.RemoteException;
 import java.sql.SQLException;
@@ -21,8 +19,11 @@ import javax.swing.JOptionPane;
  *
  * @author DatPham
  */
-public class Transfer extends javax.swing.JFrame {
+public class Trans extends javax.swing.JFrame {
 
+    /**
+     * Creates new form Trans
+     */
     private RMIClient client;
     /**
      * Creates new form Transfer
@@ -30,16 +31,16 @@ public class Transfer extends javax.swing.JFrame {
     private Locale locale = new Locale("vi", "VN");
     private NumberFormat n = NumberFormat.getCurrencyInstance(locale);
 
-    public Transfer() {
+    public Trans() {
         try {
             client = new RMIClient();
             initComponents();
             setLocationRelativeTo(null);
             this.balance.setText(String.valueOf(n.format(client.getBank().getAccount(Login.userInfo.get(1)).getBalance())));
         } catch (RemoteException ex) {
-            Logger.getLogger(Transfer.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(Trans.class.getName()).log(Level.SEVERE, null, ex);
         } catch (SQLException ex) {
-            Logger.getLogger(Transfer.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(Trans.class.getName()).log(Level.SEVERE, null, ex);
         }
 
     }
@@ -55,22 +56,32 @@ public class Transfer extends javax.swing.JFrame {
 
         jLabel1 = new javax.swing.JLabel();
         amount = new javax.swing.JTextField();
-        balance = new javax.swing.JTextField();
-        cardNo2 = new javax.swing.JTextField();
         jLabel2 = new javax.swing.JLabel();
+        cardNo2 = new javax.swing.JTextField();
         jLabel3 = new javax.swing.JLabel();
+        balance = new javax.swing.JTextField();
         back = new javax.swing.JButton();
-        trans = new javax.swing.JButton();
+        transfer = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        jLabel1.setText("Tài khoản nhận :");
+        jLabel1.setText("Tài khoản người nhận :");
 
         amount.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 amountActionPerformed(evt);
             }
         });
+
+        jLabel2.setText("Số tiền :");
+
+        cardNo2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cardNo2ActionPerformed(evt);
+            }
+        });
+
+        jLabel3.setText("Số dư hiện tại :");
 
         balance.setEditable(false);
         balance.addActionListener(new java.awt.event.ActionListener() {
@@ -79,27 +90,17 @@ public class Transfer extends javax.swing.JFrame {
             }
         });
 
-        cardNo2.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                cardNo2ActionPerformed(evt);
-            }
-        });
-
-        jLabel2.setText("Số tiền :");
-
-        jLabel3.setText("Số dư :");
-
-        back.setText("Quay lại");
+        back.setText("Trở về");
         back.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 backActionPerformed(evt);
             }
         });
 
-        trans.setText("Chuyển");
-        trans.addActionListener(new java.awt.event.ActionListener() {
+        transfer.setText("Chuyển khoản");
+        transfer.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                transActionPerformed(evt);
+                transferActionPerformed(evt);
             }
         });
 
@@ -108,70 +109,68 @@ public class Transfer extends javax.swing.JFrame {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(75, 75, 75)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(jLabel2)
-                        .addGap(18, 18, 18)
-                        .addComponent(amount, javax.swing.GroupLayout.PREFERRED_SIZE, 164, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(jLabel1)
-                        .addGap(18, 18, 18)
-                        .addComponent(cardNo2, javax.swing.GroupLayout.PREFERRED_SIZE, 164, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(layout.createSequentialGroup()
+                        .addGap(61, 61, 61)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(back, javax.swing.GroupLayout.PREFERRED_SIZE, 77, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel3))
-                        .addGap(18, 18, 18)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(balance, javax.swing.GroupLayout.PREFERRED_SIZE, 164, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                                .addComponent(trans, javax.swing.GroupLayout.PREFERRED_SIZE, 77, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(35, 35, 35)))))
-                .addContainerGap(50, Short.MAX_VALUE))
+                            .addComponent(jLabel3)
+                            .addComponent(jLabel2)
+                            .addComponent(jLabel1))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(back, javax.swing.GroupLayout.PREFERRED_SIZE, 77, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(30, 30, 30)))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(amount)
+                    .addComponent(cardNo2, javax.swing.GroupLayout.DEFAULT_SIZE, 140, Short.MAX_VALUE)
+                    .addComponent(balance)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addComponent(transfer)
+                        .addGap(13, 13, 13)))
+                .addContainerGap(56, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(64, 64, 64)
+                .addGap(80, 80, 80)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel1)
                     .addComponent(cardNo2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(amount, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel2))
+                    .addComponent(jLabel2)
+                    .addComponent(amount, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(balance, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 16, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 48, Short.MAX_VALUE)
+                    .addComponent(jLabel3)
+                    .addComponent(balance, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 47, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(back)
-                    .addComponent(trans))
-                .addGap(48, 48, 48))
+                    .addComponent(transfer))
+                .addGap(33, 33, 33))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-
+private void reset() {
+        this.amount.setText("");
+        this.cardNo2.setText("");
+    }
     private void amountActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_amountActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_amountActionPerformed
+
+    private void cardNo2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cardNo2ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_cardNo2ActionPerformed
 
     private void balanceActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_balanceActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_balanceActionPerformed
 
-    private void cardNo2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cardNo2ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_cardNo2ActionPerformed
-    private void reset() {
-        this.amount.setText("");
-        this.cardNo2.setText("");
-    }
-
-    private void transActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_transActionPerformed
+    private void transferActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_transferActionPerformed
         // TODO add your handling code here:
         ArrayList<String> code;
         String codeshow = "";
@@ -194,17 +193,39 @@ public class Transfer extends javax.swing.JFrame {
             }
             reset();
         } catch (RemoteException ex) {
-            Logger.getLogger(Transfer.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(Trans.class.getName()).log(Level.SEVERE, null, ex);
         } catch (SQLException ex) {
-            Logger.getLogger(Transfer.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(Trans.class.getName()).log(Level.SEVERE, null, ex);
         }
-
-    }//GEN-LAST:event_transActionPerformed
+    }//GEN-LAST:event_transferActionPerformed
 
     private void backActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_backActionPerformed
         // TODO add your handling code here:
-        new GUI().setVisible(true);
-        dispose();
+        ArrayList<String> code;
+        String codeshow = "";
+
+        try {
+            String amount = this.amount.getText();
+            String cardNo2 = this.cardNo2.getText();
+            System.out.println(this.amount.getText());
+            code = client.getBank().transfer(Login.userInfo.get(1), cardNo2, new BigDecimal(amount));
+            if (code.size() > 0) {
+                for (int i = 0; i < code.size(); i++) {
+                    codeshow = code.get(i) + "\n";
+                }
+                JOptionPane.showMessageDialog(null, codeshow, "Warning",
+                        JOptionPane.WARNING_MESSAGE);
+            } else {
+                this.balance.setText(String.valueOf(n.format(client.getBank().getAccount(Login.userInfo.get(1)).getBalance())));
+                JOptionPane.showMessageDialog(null, "Thành công", "Success",
+                        JOptionPane.INFORMATION_MESSAGE);
+            }
+            reset();
+        } catch (RemoteException ex) {
+            Logger.getLogger(Trans.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (SQLException ex) {
+            Logger.getLogger(Trans.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }//GEN-LAST:event_backActionPerformed
 
     /**
@@ -224,20 +245,20 @@ public class Transfer extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(Transfer.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(Trans.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(Transfer.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(Trans.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(Transfer.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(Trans.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(Transfer.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(Trans.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new Transfer().setVisible(true);
+                new Trans().setVisible(true);
             }
         });
     }
@@ -250,6 +271,6 @@ public class Transfer extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
-    private javax.swing.JButton trans;
+    private javax.swing.JButton transfer;
     // End of variables declaration//GEN-END:variables
 }
