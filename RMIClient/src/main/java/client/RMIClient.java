@@ -6,8 +6,6 @@
 package client;
 
 import bean.Bank;
-import rmi.WeatherService;
-
 import java.io.File;
 import java.rmi.NotBoundException;
 import java.rmi.RemoteException;
@@ -41,10 +39,7 @@ public class RMIClient {
 //            registry = LocateRegistry.getRegistry(host, 8888, new SslRMIClientSocketFactory());
             registry = LocateRegistry.getRegistry(HOST, PORT);
             bank = (Bank) registry.lookup(Bank.class.getSimpleName());
-            //  String NoCard = "1234567890";
-            //   String Passwd = "909090";
-            //  int count = 3;
-            //  System.out.println("Result is :" + c.logintest(NoCard, Passwd, count));
+
         } catch (NotBoundException | RemoteException e) {
         }
 

@@ -154,11 +154,6 @@ public class Login extends javax.swing.JFrame {
                             JOptionPane.WARNING_MESSAGE);
                     reset();
                 }
-//                else if (userInfo.get(0).compareToIgnoreCase("logined") == 0) {
-//                    JOptionPane.showMessageDialog(null, "Bạn chưa kết thúc giao dịch!", "Warning",
-//                            JOptionPane.WARNING_MESSAGE);
-//                    reset();
-//                }
             else if (userInfo.get(0).compareToIgnoreCase("locked") == 0) {
                     JOptionPane.showMessageDialog(null, "Tài khoản của bạn đã bị khóa!", "Warning",
                             JOptionPane.WARNING_MESSAGE);
@@ -191,6 +186,8 @@ public class Login extends javax.swing.JFrame {
                 }
             } catch (RemoteException ex) {
                 Logger.getLogger(Login.class.getName()).log(Level.SEVERE, null, ex);
+                JOptionPane.showMessageDialog(null, "Không có quyền truy cập", "Warning",
+                            JOptionPane.WARNING_MESSAGE);
             } catch (SQLException ex) {
                 Logger.getLogger(Login.class.getName()).log(Level.SEVERE, null, ex);
             }

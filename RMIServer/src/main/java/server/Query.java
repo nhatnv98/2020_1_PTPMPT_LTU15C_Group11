@@ -60,6 +60,8 @@ public class Query {
         return transactionList;
     }
 
+    
+
     public static boolean check(String cardNo) {
         PreparedStatement ps;
         ResultSet rs;
@@ -189,5 +191,5 @@ public class Query {
         }
         return code;
     }
-    
+
 }

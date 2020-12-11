@@ -201,31 +201,8 @@ private void reset() {
 
     private void backActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_backActionPerformed
         // TODO add your handling code here:
-        ArrayList<String> code;
-        String codeshow = "";
-
-        try {
-            String amount = this.amount.getText();
-            String cardNo2 = this.cardNo2.getText();
-            System.out.println(this.amount.getText());
-            code = client.getBank().transfer(Login.userInfo.get(1), cardNo2, new BigDecimal(amount));
-            if (code.size() > 0) {
-                for (int i = 0; i < code.size(); i++) {
-                    codeshow = code.get(i) + "\n";
-                }
-                JOptionPane.showMessageDialog(null, codeshow, "Warning",
-                        JOptionPane.WARNING_MESSAGE);
-            } else {
-                this.balance.setText(String.valueOf(n.format(client.getBank().getAccount(Login.userInfo.get(1)).getBalance())));
-                JOptionPane.showMessageDialog(null, "Thành công", "Success",
-                        JOptionPane.INFORMATION_MESSAGE);
-            }
-            reset();
-        } catch (RemoteException ex) {
-            Logger.getLogger(Trans.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (SQLException ex) {
-            Logger.getLogger(Trans.class.getName()).log(Level.SEVERE, null, ex);
-        }
+        new GUI().setVisible(true); 
+        dispose();
     }//GEN-LAST:event_backActionPerformed
 
     /**
