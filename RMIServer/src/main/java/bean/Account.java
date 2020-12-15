@@ -9,7 +9,6 @@ import java.io.Serializable;
 import java.math.BigDecimal;
 
 /**
- *
  * @author HK
  */
 public class Account implements Serializable {

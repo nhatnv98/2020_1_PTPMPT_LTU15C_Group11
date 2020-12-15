@@ -9,7 +9,6 @@ import java.math.BigDecimal;
  */
 
 /**
- *
  * @author Admin
  */
 public class Transaction {
@@ -19,7 +18,7 @@ public class Transaction {
     private BigDecimal money_no;
     private String tran_date;
     private String code;
-    
+
     public Transaction(String card_no1, String card_no2, String type, BigDecimal money_no, String tran_date, String code) {
         this.card_no1 = card_no1;
         this.card_no2 = card_no2;
@@ -76,6 +75,6 @@ public class Transaction {
     public void setCode(String code) {
         this.code = code;
     }
-    
-    
+
+
 }

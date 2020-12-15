@@ -9,7 +9,6 @@ import java.io.Serializable;
 import java.math.BigDecimal;
 
 /**
- *
  * @author HK
  */
 public class Account implements Serializable {
@@ -20,6 +19,7 @@ public class Account implements Serializable {
     private String card_no;
     private String pin;
     private BigDecimal balance;
+
     public String getFull_name() {
         return full_name;
     }

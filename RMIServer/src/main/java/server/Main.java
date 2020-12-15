@@ -8,8 +8,13 @@ package server;
 import bean.Account;
 import bean.Transaction;
 
+import javax.swing.*;
+import javax.swing.event.ChangeEvent;
+import javax.swing.event.ChangeListener;
+import javax.swing.table.DefaultTableModel;
 import java.math.BigDecimal;
 import java.math.BigInteger;
+import java.rmi.RemoteException;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -20,13 +25,8 @@ import java.util.Random;
 import java.util.UUID;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import javax.swing.JOptionPane;
-import javax.swing.event.ChangeEvent;
-import javax.swing.event.ChangeListener;
-import javax.swing.table.DefaultTableModel;
 
 /**
- *
  * @author HK
  */
 public class Main extends javax.swing.JFrame {
@@ -41,7 +41,7 @@ public class Main extends javax.swing.JFrame {
 
     public Main() {
         initComponents();
-        Server.init();
+        RMIServer.initWithoutKey();
         this.setLocationRelativeTo(null);
         Query query = new Query();
         ArrayList<Transaction> transactionList = query.getTransactionHistory();
@@ -60,7 +60,7 @@ public class Main extends javax.swing.JFrame {
                     model.getDataVector().removeAllElements();
                     ArrayList<Transaction> transactionList = query.getTransactionHistory();
                     for (int i = 0; i < transactionList.size(); i++) {
-                        Object[] row = {transactionList.get(i).getCard_no1(), transactionList.get(i).getCard_no2(), transactionList.get(i).getType(),n.format(transactionList.get(i).getMoney_no()), transactionList.get(i).getCode(), transactionList.get(i).getTran_date()};
+                        Object[] row = {transactionList.get(i).getCard_no1(), transactionList.get(i).getCard_no2(), transactionList.get(i).getType(), n.format(transactionList.get(i).getMoney_no()), transactionList.get(i).getCode(), transactionList.get(i).getTran_date()};
                         model.addRow(row);
                     }
                 }
@@ -97,10 +97,10 @@ public class Main extends javax.swing.JFrame {
         pintf = new javax.swing.JTextField();
         jPanel1 = new javax.swing.JPanel();
         jLabel7 = new javax.swing.JLabel();
-        topUpAccountTextView = new javax.swing.JTextField();
+        cardNo = new javax.swing.JTextField();
         jLabel8 = new javax.swing.JLabel();
-        topUpAmountTextView = new javax.swing.JTextField();
-        topUpButtonView = new javax.swing.JButton();
+        amount = new javax.swing.JTextField();
+        addToAccount = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -111,26 +111,26 @@ public class Main extends javax.swing.JFrame {
         });
 
         TransactionTableView.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
+                new Object[][]{
 
-            },
-            new String [] {
-                "Tài khoản nguồn", "Tài khoản nhận tiền", "Loại", "Số tiền", "Mã", "Thời gian"
-            }
+                },
+                new String[]{
+                        "Tài khoản nguồn", "Tài khoản nhận tiền", "Loại", "Số tiền", "Mã", "Thời gian"
+                }
         ) {
-            Class[] types = new Class [] {
-                java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class
+            Class[] types = new Class[]{
+                    java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class
             };
-            boolean[] canEdit = new boolean [] {
-                false, false, false, false, false, false
+            boolean[] canEdit = new boolean[]{
+                    false, false, false, false, false, false
             };
 
             public Class getColumnClass(int columnIndex) {
-                return types [columnIndex];
+                return types[columnIndex];
             }
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
-                return canEdit [columnIndex];
+                return canEdit[columnIndex];
             }
         });
         jScrollPane1.setViewportView(TransactionTableView);
@@ -138,12 +138,12 @@ public class Main extends javax.swing.JFrame {
         javax.swing.GroupLayout TransactionTabViewLayout = new javax.swing.GroupLayout(TransactionTabView);
         TransactionTabView.setLayout(TransactionTabViewLayout);
         TransactionTabViewLayout.setHorizontalGroup(
-            TransactionTabViewLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 774, Short.MAX_VALUE)
+                TransactionTabViewLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 774, Short.MAX_VALUE)
         );
         TransactionTabViewLayout.setVerticalGroup(
-            TransactionTabViewLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 310, Short.MAX_VALUE)
+                TransactionTabViewLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 310, Short.MAX_VALUE)
         );
 
         MainView.addTab("Giám sát giao dịch", TransactionTabView);
@@ -175,58 +175,58 @@ public class Main extends javax.swing.JFrame {
         javax.swing.GroupLayout jPanel8Layout = new javax.swing.GroupLayout(jPanel8);
         jPanel8.setLayout(jPanel8Layout);
         jPanel8Layout.setHorizontalGroup(
-            jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel8Layout.createSequentialGroup()
-                .addGroup(jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel8Layout.createSequentialGroup()
-                        .addGap(28, 28, 28)
-                        .addGroup(jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 83, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel2)
-                            .addComponent(jLabel3)
-                            .addComponent(jLabel4)
-                            .addComponent(jLabel9))
-                        .addGap(18, 18, 18)
-                        .addGroup(jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(createAccountButtonView, javax.swing.GroupLayout.DEFAULT_SIZE, 346, Short.MAX_VALUE)
-                            .addComponent(numacc)
-                            .addComponent(addressTextView)
-                            .addComponent(phoneTextView)
-                            .addComponent(fullNameTextView)
-                            .addComponent(pintf)))
-                    .addGroup(jPanel8Layout.createSequentialGroup()
-                        .addGap(20, 20, 20)
-                        .addComponent(jLabel10)))
-                .addContainerGap(310, Short.MAX_VALUE))
+                jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(jPanel8Layout.createSequentialGroup()
+                                .addGroup(jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                        .addGroup(jPanel8Layout.createSequentialGroup()
+                                                .addGap(28, 28, 28)
+                                                .addGroup(jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                                        .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 83, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                        .addComponent(jLabel2)
+                                                        .addComponent(jLabel3)
+                                                        .addComponent(jLabel4)
+                                                        .addComponent(jLabel9))
+                                                .addGap(18, 18, 18)
+                                                .addGroup(jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                                        .addComponent(createAccountButtonView, javax.swing.GroupLayout.DEFAULT_SIZE, 346, Short.MAX_VALUE)
+                                                        .addComponent(numacc)
+                                                        .addComponent(addressTextView)
+                                                        .addComponent(phoneTextView)
+                                                        .addComponent(fullNameTextView)
+                                                        .addComponent(pintf)))
+                                        .addGroup(jPanel8Layout.createSequentialGroup()
+                                                .addGap(20, 20, 20)
+                                                .addComponent(jLabel10)))
+                                .addContainerGap(310, Short.MAX_VALUE))
         );
         jPanel8Layout.setVerticalGroup(
-            jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel8Layout.createSequentialGroup()
-                .addGap(31, 31, 31)
-                .addGroup(jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel1)
-                    .addComponent(fullNameTextView, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel2)
-                    .addComponent(addressTextView, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel3)
-                    .addComponent(phoneTextView, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jLabel10)
-                .addGap(18, 18, 18)
-                .addGroup(jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel9)
-                    .addComponent(numacc, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
-                .addGroup(jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel4)
-                    .addComponent(pintf, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
-                .addComponent(createAccountButtonView)
-                .addGap(29, 29, 29))
+                jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(jPanel8Layout.createSequentialGroup()
+                                .addGap(31, 31, 31)
+                                .addGroup(jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                        .addComponent(jLabel1)
+                                        .addComponent(fullNameTextView, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addGroup(jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                        .addComponent(jLabel2)
+                                        .addComponent(addressTextView, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addGroup(jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                        .addComponent(jLabel3)
+                                        .addComponent(phoneTextView, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(jLabel10)
+                                .addGap(18, 18, 18)
+                                .addGroup(jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                        .addComponent(jLabel9)
+                                        .addComponent(numacc, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGap(18, 18, 18)
+                                .addGroup(jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                        .addComponent(jLabel4)
+                                        .addComponent(pintf, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGap(18, 18, 18)
+                                .addComponent(createAccountButtonView)
+                                .addGap(29, 29, 29))
         );
 
         MainView.addTab("Tạo tài khoản mới", jPanel8);
@@ -235,49 +235,49 @@ public class Main extends javax.swing.JFrame {
 
         jLabel8.setText("Số tiền");
 
-        topUpAmountTextView.addActionListener(new java.awt.event.ActionListener() {
+        amount.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                topUpAmountTextViewActionPerformed(evt);
+                amountActionPerformed(evt);
             }
         });
 
-        topUpButtonView.setText("Nạp tiền vào tài khoản");
-        topUpButtonView.addActionListener(new java.awt.event.ActionListener() {
+        addToAccount.setText("Nạp tiền vào tài khoản");
+        addToAccount.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                topUpButtonViewActionPerformed(evt);
+                addToAccountActionPerformed(evt);
             }
         });
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(37, 37, 37)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel7)
-                    .addComponent(jLabel8))
-                .addGap(37, 37, 37)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(topUpButtonView, javax.swing.GroupLayout.DEFAULT_SIZE, 319, Short.MAX_VALUE)
-                    .addComponent(topUpAccountTextView)
-                    .addComponent(topUpAmountTextView, javax.swing.GroupLayout.DEFAULT_SIZE, 319, Short.MAX_VALUE))
-                .addContainerGap(322, Short.MAX_VALUE))
+                jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addGap(37, 37, 37)
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                        .addComponent(jLabel7)
+                                        .addComponent(jLabel8))
+                                .addGap(37, 37, 37)
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                        .addComponent(addToAccount, javax.swing.GroupLayout.DEFAULT_SIZE, 319, Short.MAX_VALUE)
+                                        .addComponent(cardNo)
+                                        .addComponent(amount, javax.swing.GroupLayout.DEFAULT_SIZE, 319, Short.MAX_VALUE))
+                                .addContainerGap(322, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(21, 21, 21)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel7)
-                    .addComponent(topUpAccountTextView, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel8)
-                    .addComponent(topUpAmountTextView, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
-                .addComponent(topUpButtonView)
-                .addContainerGap(179, Short.MAX_VALUE))
+                jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addGap(21, 21, 21)
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                        .addComponent(jLabel7)
+                                        .addComponent(cardNo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                        .addComponent(jLabel8)
+                                        .addComponent(amount, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGap(18, 18, 18)
+                                .addComponent(addToAccount)
+                                .addContainerGap(179, Short.MAX_VALUE))
         );
 
         MainView.addTab("Nạp tiền vào tài khoản", jPanel1);
@@ -285,18 +285,18 @@ public class Main extends javax.swing.JFrame {
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(MainView)
-                .addContainerGap())
+                layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(layout.createSequentialGroup()
+                                .addContainerGap()
+                                .addComponent(MainView)
+                                .addContainerGap())
         );
         layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(MainView, javax.swing.GroupLayout.PREFERRED_SIZE, 336, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(21, Short.MAX_VALUE))
+                layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(layout.createSequentialGroup()
+                                .addContainerGap()
+                                .addComponent(MainView, javax.swing.GroupLayout.PREFERRED_SIZE, 336, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addContainerGap(21, Short.MAX_VALUE))
         );
 
         pack();
@@ -306,13 +306,66 @@ public class Main extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_MainViewComponentShown
 
-    private void topUpButtonViewActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_topUpButtonViewActionPerformed
+    public Account getAccount(String cardNo) throws RemoteException, SQLException {
+        if (isNumeric(cardNo)) {
+            String sql = "select * from Account where card_no=?";
+            PreparedStatement ps;
+            ps = MyConnection.getConnection().prepareStatement(sql);
+            ps.setString(1, cardNo);
+            ResultSet rs = ps.executeQuery();
+            if (rs.next()) {
+                return new Account(rs.getString(2), rs.getString(3),
+                        rs.getString(4), rs.getString(5), rs.getString(6), rs.getBigDecimal(7));
+            }
+        }
+        return null;
 
-    }//GEN-LAST:event_topUpButtonViewActionPerformed
+    }
 
-    private void topUpAmountTextViewActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_topUpAmountTextViewActionPerformed
+    private void addToAccountActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addToAccountActionPerformed
+        PreparedStatement ps;
+        ResultSet rs;
+        if (!this.cardNo.getText().isEmpty() || !this.amount.getText().isEmpty()) {
+            try {
+                BigDecimal amount2 = new BigDecimal(this.amount.getText());
+                Account account = getAccount(this.cardNo.getText());
+                if (account != null) {
+                    if (amount2.compareTo(new BigDecimal("50000")) == 0 || amount2.compareTo(new BigDecimal("50000")) == 1) {
+                        if (amount2.remainder(new BigDecimal("5000")).equals(BigDecimal.ZERO)) {
+                            BigDecimal balance2 = account.getBalance().add(amount2);
+                            String sql2 = "update Account set balance =? where card_no =?";
+                            PreparedStatement ps2;
+                            ps = MyConnection.getConnection().prepareStatement(sql2);
+                            ps.setBigDecimal(1, balance2);
+                            ps.setString(2, this.cardNo.getText());
+                            ps.executeUpdate();
+                            JOptionPane.showMessageDialog(null, "Nạp thành công" + this.amount.getText() + " cho số tài khoản" + this.cardNo.getText()
+                                    , "Warning", JOptionPane.WARNING_MESSAGE);
+                            this.cardNo.setText("");
+                            this.amount.setText("");
+                        } else {
+                            JOptionPane.showMessageDialog(null, "Số tiền phải là bội của 5000", "Warning", JOptionPane.WARNING_MESSAGE);
+                        }
+                    } else {
+                        JOptionPane.showMessageDialog(null, "Nạp tối thiểu 50.000 VNĐ", "Warning", JOptionPane.WARNING_MESSAGE);
+                    }
+                } else {
+                    JOptionPane.showMessageDialog(null, "Không tồn tại tài khoản", "Warning", JOptionPane.WARNING_MESSAGE);
+                }
+
+            } catch (SQLException ex) {
+                Logger.getLogger(Query.class.getName()).log(Level.SEVERE, null, ex);
+            } catch (RemoteException ex) {
+                Logger.getLogger(BannImpl.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        } else {
+            JOptionPane.showMessageDialog(null, "Không được để trống số tài khoản hoặc số tiền", "Warning", JOptionPane.WARNING_MESSAGE);
+        }
+    }//GEN-LAST:event_addToAccountActionPerformed
+
+    private void amountActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_amountActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_topUpAmountTextViewActionPerformed
+    }//GEN-LAST:event_amountActionPerformed
 
     private void createAccountButtonViewActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_createAccountButtonViewActionPerformed
         // TODO add your handling code here:
@@ -332,17 +385,15 @@ public class Main extends javax.swing.JFrame {
                 query.createAccount(fullName, address, phone, cardNo, pin);
                 numacc.setText(cardNo);
                 pintf.setText(pin);
-                JOptionPane.showMessageDialog(null, "Táº¡o tÃ i khoáº£n thÃ nh cÃ´ng");
+                JOptionPane.showMessageDialog(null, "Tạo thành công");
             } else {
-                JOptionPane.showMessageDialog(null, "Sá»‘ Ä‘iá»‡n thoáº¡i pháº£i lÃ  10 sá»‘!");
+                JOptionPane.showMessageDialog(null, "Số điện thoại phải là 10 số!");
             }
 
         } else {
-            JOptionPane.showMessageDialog(null, "Vui lÃ²ng Ä‘iá»?n Ä‘áº§y Ä‘á»§ thÃ´ng tin");
+            JOptionPane.showMessageDialog(null, "Vui lòng điền đủ thông tin");
         }
     }//GEN-LAST:event_createAccountButtonViewActionPerformed
-
-    
 
     public static boolean isNumeric(String cardNo, String pin) {
         if (cardNo.matches("-?\\d+(\\.\\d+)?")) {
@@ -371,7 +422,9 @@ public class Main extends javax.swing.JFrame {
         } else {
             return false;
         }
-    }    private String genPin(int length) {
+    }
+
+    private String genPin(int length) {
         StringBuilder sb = new StringBuilder();
         Random generator = new Random();
         for (int i = 0; i < length; i++) {
@@ -381,6 +434,7 @@ public class Main extends javax.swing.JFrame {
         }
         return sb.toString();
     }
+
     /**
      * @param args the command line arguments
      */
@@ -388,7 +442,7 @@ public class Main extends javax.swing.JFrame {
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
         /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
+         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html
          */
         try {
             for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
@@ -399,13 +453,17 @@ public class Main extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            Logger.getLogger(Main.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(Main.class
+                    .getName()).log(Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            Logger.getLogger(Main.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(Main.class
+                    .getName()).log(Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            Logger.getLogger(Main.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(Main.class
+                    .getName()).log(Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            Logger.getLogger(Main.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(Main.class
+                    .getName()).log(Level.SEVERE, null, ex);
         }
         //</editor-fold>
         //</editor-fold>
@@ -422,7 +480,10 @@ public class Main extends javax.swing.JFrame {
     private javax.swing.JTabbedPane MainView;
     private javax.swing.JPanel TransactionTabView;
     private javax.swing.JTable TransactionTableView;
+    private javax.swing.JButton addToAccount;
     private javax.swing.JTextField addressTextView;
+    private javax.swing.JTextField amount;
+    private javax.swing.JTextField cardNo;
     private javax.swing.JButton createAccountButtonView;
     private javax.swing.JTextField fullNameTextView;
     private javax.swing.JLabel jLabel1;
@@ -440,8 +501,5 @@ public class Main extends javax.swing.JFrame {
     private javax.swing.JTextField numacc;
     private javax.swing.JTextField phoneTextView;
     private javax.swing.JTextField pintf;
-    private javax.swing.JTextField topUpAccountTextView;
-    private javax.swing.JTextField topUpAmountTextView;
-    private javax.swing.JButton topUpButtonView;
     // End of variables declaration//GEN-END:variables
 }

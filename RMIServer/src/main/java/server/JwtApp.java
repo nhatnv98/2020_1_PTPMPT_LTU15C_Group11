@@ -14,7 +14,6 @@ import java.nio.charset.Charset;
 import java.util.Base64;
 
 /**
- *
  * @author HK
  */
 public class JwtApp {
@@ -22,7 +21,7 @@ public class JwtApp {
     private final java.sql.Timestamp curent_Date = new java.sql.Timestamp(new java.util.Date().getTime());
     private final String SECRET_KEY = curent_Date.toString();
     private static final String JWT_HEADER = "{\"alg\":\"HS256\",\"typ\":\"JWT\"}";
-    
+
     public String generateJWT(String cardNo) throws Exception {
         String payload = "{\"card_no\":\"" + cardNo + "\"}";
         String PART1 = doBASE64(JWT_HEADER);

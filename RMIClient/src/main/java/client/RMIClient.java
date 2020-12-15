@@ -6,15 +6,16 @@
 package client;
 
 import bean.Bank;
+
 import java.io.File;
 import java.rmi.NotBoundException;
 import java.rmi.RemoteException;
 import java.rmi.registry.LocateRegistry;
 import java.rmi.registry.Registry;
-import javax.rmi.ssl.SslRMIClientSocketFactory;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
- *
  * @author HK
  */
 public class RMIClient {
@@ -28,31 +29,33 @@ public class RMIClient {
     public void setBank(Bank bank) {
         this.bank = bank;
     }
+
     private static final String HOST = "localhost";
     private static final int PORT = 8888;
     private static Registry registry;
+
     public RMIClient() {
-        Registry registry;
         String host = "localhost";
         try {
 //            setSettings();
 //            registry = LocateRegistry.getRegistry(host, 8888, new SslRMIClientSocketFactory());
             registry = LocateRegistry.getRegistry(HOST, PORT);
             bank = (Bank) registry.lookup(Bank.class.getSimpleName());
-
-        } catch (NotBoundException | RemoteException e) {
+        } catch (RemoteException ex) {
+            Logger.getLogger(RMIClient.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (NotBoundException ex) {
+            Logger.getLogger(RMIClient.class.getName()).log(Level.SEVERE, null, ex);
         }
 
     }
 
-    private void setSettings() {
+    private static void setSettings() {
         String path = new File("").getAbsolutePath();
         String pass = "123456";
         System.setProperty("javax.net.ssl.debug", "all");
-        System.setProperty("javax.net.ssl.keyStore", path + "/sslkey/clientKey/client.keystore");
+        System.setProperty("javax.net.ssl.keyStore", path + "/sslkey/serverKey/server.keystore");
         System.setProperty("javax.net.ssl.keyStorePassword", pass);
-        System.setProperty("javax.net.ssl.trustStore", path + "/sslkey/clientKey/client.truststore");
+        System.setProperty("javax.net.ssl.trustStore", path + "/sslkey/serverKey/server.truststore");
         System.setProperty("javax.net.ssl.trustStorePassword", pass);
     }
-
 }

@@ -7,7 +7,6 @@ package server;
 
 import bean.Account;
 import bean.Transaction;
-import org.mindrot.jbcrypt.BCrypt;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 import java.math.BigDecimal;
@@ -20,7 +19,6 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 /**
- *
  * @author Admin
  */
 public class Query {
@@ -60,7 +58,6 @@ public class Query {
         return transactionList;
     }
 
-    
 
     public static boolean check(String cardNo) {
         PreparedStatement ps;

@@ -295,9 +295,9 @@
                       </Group>
                       <EmptySpace min="-2" pref="37" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                          <Component id="topUpButtonView" pref="319" max="32767" attributes="0"/>
-                          <Component id="topUpAccountTextView" max="32767" attributes="0"/>
-                          <Component id="topUpAmountTextView" pref="319" max="32767" attributes="0"/>
+                          <Component id="addToAccount" pref="319" max="32767" attributes="0"/>
+                          <Component id="cardNo" max="32767" attributes="0"/>
+                          <Component id="amount" pref="319" max="32767" attributes="0"/>
                       </Group>
                       <EmptySpace pref="322" max="32767" attributes="0"/>
                   </Group>
@@ -309,15 +309,15 @@
                       <EmptySpace min="-2" pref="21" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="3" attributes="0">
                           <Component id="jLabel7" alignment="3" min="-2" max="-2" attributes="0"/>
-                          <Component id="topUpAccountTextView" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="cardNo" alignment="3" min="-2" max="-2" attributes="0"/>
                       </Group>
                       <EmptySpace type="unrelated" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="0" attributes="0">
                           <Component id="jLabel8" min="-2" max="-2" attributes="0"/>
-                          <Component id="topUpAmountTextView" min="-2" max="-2" attributes="0"/>
+                          <Component id="amount" min="-2" max="-2" attributes="0"/>
                       </Group>
                       <EmptySpace type="separate" max="-2" attributes="0"/>
-                      <Component id="topUpButtonView" min="-2" max="-2" attributes="0"/>
+                      <Component id="addToAccount" min="-2" max="-2" attributes="0"/>
                       <EmptySpace pref="179" max="32767" attributes="0"/>
                   </Group>
               </Group>
@@ -329,24 +329,24 @@
                 <Property name="text" type="java.lang.String" value="S&#x1ed1; t&#xe0;i kho&#x1ea3;n"/>
               </Properties>
             </Component>
-            <Component class="javax.swing.JTextField" name="topUpAccountTextView">
+            <Component class="javax.swing.JTextField" name="cardNo">
             </Component>
             <Component class="javax.swing.JLabel" name="jLabel8">
               <Properties>
                 <Property name="text" type="java.lang.String" value="S&#x1ed1; ti&#x1ec1;n"/>
               </Properties>
             </Component>
-            <Component class="javax.swing.JTextField" name="topUpAmountTextView">
+            <Component class="javax.swing.JTextField" name="amount">
               <Events>
-                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="topUpAmountTextViewActionPerformed"/>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="amountActionPerformed"/>
               </Events>
             </Component>
-            <Component class="javax.swing.JButton" name="topUpButtonView">
+            <Component class="javax.swing.JButton" name="addToAccount">
               <Properties>
                 <Property name="text" type="java.lang.String" value="N&#x1ea1;p ti&#x1ec1;n v&#xe0;o t&#xe0;i kho&#x1ea3;n"/>
               </Properties>
               <Events>
-                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="topUpButtonViewActionPerformed"/>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="addToAccountActionPerformed"/>
               </Events>
             </Component>
           </SubComponents>

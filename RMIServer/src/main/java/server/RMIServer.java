@@ -1,21 +1,20 @@
 /*
  * To change this license header, choose License Headers in Project Properties.
-* To change this template file, choose Tools | Templates
+ * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
 package server;
 
 import bean.Bank;
+
+import javax.rmi.ssl.SslRMIClientSocketFactory;
+import javax.rmi.ssl.SslRMIServerSocketFactory;
 import java.io.File;
-import java.rmi.AlreadyBoundException;
 import java.rmi.RemoteException;
 import java.rmi.registry.LocateRegistry;
 import java.rmi.registry.Registry;
-import javax.rmi.ssl.SslRMIClientSocketFactory;
-import javax.rmi.ssl.SslRMIServerSocketFactory;
 
 /**
- *
  * @author HK
  */
 public class RMIServer {
@@ -28,12 +27,12 @@ public class RMIServer {
         try {
             setSettings();
             //System.setSecurityManager(new SecurityManager());
-            BannImpl impl = new BannImpl();
             //System.setProperty("java.rmi.server.hostname", host);
-            LocateRegistry.createRegistry(8888, new SslRMIClientSocketFactory(),
-                    new SslRMIServerSocketFactory(null, null, true));
+//            LocateRegistry.createRegistry(PORT,  new RMISSLClientSocketFactory(),
+//                new RMISSLServerSocketFactory());
+            LocateRegistry.createRegistry(PORT, new SslRMIClientSocketFactory(), new SslRMIServerSocketFactory(null, null, true));
             Registry registry = LocateRegistry.getRegistry(HOST, PORT, new SslRMIClientSocketFactory());
-            registry.rebind("bank", impl);
+            registry.rebind(Bank.class.getSimpleName(), new BannImpl());
             System.out.println(">>>>>INFO: RMI Server started!!!!!!!!");
 
         } catch (Exception e) {

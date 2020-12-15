@@ -12,7 +12,6 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 
 /**
- *
  * @author HK
  */
 // Creating Remote interface for our application 
@@ -29,6 +28,6 @@ public interface Bank extends Remote {
     public ArrayList<String> withdraw(String cardNo, BigDecimal amount) throws RemoteException, SQLException;
 
     public ArrayList<String> changepass(String cardNo, String oldpass, String newpass) throws RemoteException, SQLException;
-    
+
     public void changeStatus(String cardNo) throws RemoteException;
 }

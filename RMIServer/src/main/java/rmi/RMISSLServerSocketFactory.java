@@ -5,17 +5,16 @@
  */
 package rmi;
 
+import javax.net.ssl.KeyManagerFactory;
+import javax.net.ssl.SSLContext;
+import javax.net.ssl.SSLServerSocketFactory;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.net.ServerSocket;
 import java.rmi.server.RMIServerSocketFactory;
 import java.security.KeyStore;
-import javax.net.ssl.KeyManagerFactory;
-import javax.net.ssl.SSLContext;
-import javax.net.ssl.SSLServerSocketFactory;
 
 /**
- *
  * @author DatPham
  */
 public class RMISSLServerSocketFactory implements RMIServerSocketFactory {
@@ -51,7 +50,7 @@ public class RMISSLServerSocketFactory implements RMIServerSocketFactory {
     }
 
     public ServerSocket createServerSocket(int port) throws IOException {
-            return ssf.createServerSocket(port);
+        return ssf.createServerSocket(port);
     }
 
     public int hashCode() {
