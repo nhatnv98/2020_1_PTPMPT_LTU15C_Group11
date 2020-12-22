@@ -56,7 +56,7 @@ public class ChangePass extends javax.swing.JFrame {
                 btBackActionPerformed(evt);
             }
         });
-
+        // change pass
         jLabel2.setText("Nhập lại mật khẩu. : ");
 
         jLabel3.setText("Nhập mật khẩu mới .: ");
